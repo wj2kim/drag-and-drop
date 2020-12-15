@@ -30,17 +30,18 @@ body {
   width: 320px;
   background-color: #222222;
   box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.5);
+  font-family: monospace;
+  padding-bottom: 24px;
   color: #ffffff;
   list-style-type: none;
 }
 #app p.profile-notice {
-  margin: 0px 0px 5px 24px;
+  margin-left: 24px;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
   letter-spacing: normal;
   text-align: left;
-  height: 31px;
   font-size: 13px;
   font-weight: normal;
 }
@@ -55,52 +56,52 @@ body {
   width: 272px;
   margin: 0 24px 0 24px;
 }
-#app #profile-wrapper.profile-wrapper.item-1-1 {
+#app #profile-wrapper.profile-wrapper.item-0-1 {
   height: 260px;
 }
-#app #profile-wrapper.profile-wrapper.item-1-2, #app #profile-wrapper.profile-wrapper.item-1-3 {
+#app #profile-wrapper.profile-wrapper.item-0-2, #app #profile-wrapper.profile-wrapper.item-0-3 {
   height: 130px;
   margin-bottom: 5px;
 }
-#app #profile-wrapper.profile-wrapper.item-1-2 .profile-header, #app #profile-wrapper.profile-wrapper.item-1-3 .profile-header {
+#app #profile-wrapper.profile-wrapper.item-0-2 .profile-header, #app #profile-wrapper.profile-wrapper.item-0-3 .profile-header {
   position: absolute;
   z-index: 0;
   height: 8%;
 }
-#app #profile-wrapper.profile-wrapper.item-1-2 .popup-profile-default-picture, #app #profile-wrapper.profile-wrapper.item-1-3 .popup-profile-default-picture {
+#app #profile-wrapper.profile-wrapper.item-0-2 .popup-profile-default-picture, #app #profile-wrapper.profile-wrapper.item-0-3 .popup-profile-default-picture {
   position: relative;
   z-index: 1;
   height: 100%;
 }
-#app #profile-wrapper.profile-wrapper.item-2-2 {
+#app #profile-wrapper.profile-wrapper.item-1-2 {
   height: 130px;
 }
-#app #profile-wrapper.profile-wrapper.item-2-2 .profile-header {
+#app #profile-wrapper.profile-wrapper.item-1-2 .profile-header {
   position: absolute;
   z-index: 0;
   height: 8%;
 }
-#app #profile-wrapper.profile-wrapper.item-2-2 .popup-profile-default-picture {
+#app #profile-wrapper.profile-wrapper.item-1-2 .popup-profile-default-picture {
   position: relative;
   z-index: 1;
   height: 100%;
 }
-#app #profile-wrapper.profile-wrapper.item-2-3, #app #profile-wrapper.profile-wrapper.item-3-3 {
+#app #profile-wrapper.profile-wrapper.item-1-3, #app #profile-wrapper.profile-wrapper.item-2-3 {
   height: 130px;
   width: 133px;
   margin: 0;
 }
-#app #profile-wrapper.profile-wrapper.item-2-3 .profile-header, #app #profile-wrapper.profile-wrapper.item-3-3 .profile-header {
+#app #profile-wrapper.profile-wrapper.item-1-3 .profile-header, #app #profile-wrapper.profile-wrapper.item-2-3 .profile-header {
   position: absolute;
   z-index: 0;
   height: 8%;
 }
-#app #profile-wrapper.profile-wrapper.item-2-3 .popup-profile-default-picture, #app #profile-wrapper.profile-wrapper.item-3-3 .popup-profile-default-picture {
+#app #profile-wrapper.profile-wrapper.item-1-3 .popup-profile-default-picture, #app #profile-wrapper.profile-wrapper.item-2-3 .popup-profile-default-picture {
   position: relative;
   z-index: 1;
   height: 100%;
 }
-#app #profile-wrapper.profile-wrapper.item-2-3 .popup-profile-default-picture img.fill-3-copy-2, #app #profile-wrapper.profile-wrapper.item-3-3 .popup-profile-default-picture img.fill-3-copy-2 {
+#app #profile-wrapper.profile-wrapper.item-1-3 .popup-profile-default-picture img.fill-3-copy-2, #app #profile-wrapper.profile-wrapper.item-2-3 .popup-profile-default-picture img.fill-3-copy-2 {
   margin-top: 8px;
   object-fit: contain;
   width: 100%;
@@ -113,7 +114,6 @@ body {
 }
 #app #profile-wrapper.profile-wrapper .draggable.over {
   outline: 3px dotted rgba(255, 255, 255, 0.747);
-  opacity: 0.9;
 }
 #app #profile-wrapper.profile-wrapper .profile-header {
   height: 15%;

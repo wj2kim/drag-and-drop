@@ -21,9 +21,8 @@ export default function App($element) {
 
         const handleDragStart = (e) => {
             this.$draggingElement = e.target;
-
             e.dataTransfer.effectAllowed = 'move';
-            e.dataTransfer.setData('text/html', e.target.innerHTML);
+            // e.dataTransfer.setData('text/html', e.target.innerHTML);
         }
 
         const handleDragOver = (e) => {
@@ -38,15 +37,15 @@ export default function App($element) {
 
         const handleDragEnter = (e) => {
             if(e.target.nodeName !== 'div' && !e.target.classList.contains('draggable')){
-                const target = e.target.closest('.draggable');
-                target.classList.add('over');
+                const $target = e.target.closest('.draggable') ?? null;
+                $target && $target.classList.add('over');
             }
         }
 
         const handleDragLeave = (e) => {
             if(e.target.nodeName !== 'div' && !e.target.classList.contains('draggable')){
-                const target = e.target.closest('.draggable');
-                target.classList.remove('over');
+                const $target = e.target.closest('.draggable') ?? null;
+                $target && $target.classList.remove('over');
             }
         }
 
@@ -54,54 +53,58 @@ export default function App($element) {
             if (e.stopPropagation) {
             e.stopPropagation();
             }
-            let target = null
+            let $target = null
             if(e.target.nodeName !== 'div' && !e.target.classList.contains('draggable')){
-                target = e.target.closest('.draggable')
+                $target = e.target.closest('.draggable') ?? null;
+            }
+            if(!$target){
+                return;
             }
             
-            if (this.$draggingElement !== target) {
-                const users = this.state.users; 
-                const targetUserId = target.dataset.id;
-                const draggingUserId = this.$draggingElement.dataset.id;
+            if (this.$draggingElement !== $target) {
+                const {users} = this.state; 
+                const targetIdx = $target.dataset.idx;
+                const draggingIdx = this.$draggingElement.dataset.idx;
 
-                console.log(users, targetUserId, draggingUserId);
+                const temp = users[targetIdx];
+                users[targetIdx] = users[draggingIdx];
+                users[draggingIdx] = temp;
 
-            this.$draggingElement.innerHTML = target.innerHTML;
-            target.innerHTML = e.dataTransfer.getData('text/html');
+                this.setState({
+                    users,
+                })
+
+                console.log("유저 순서", this.state.users);
+                // this.$draggingElement.innerHTML = target.innerHTML;
+                // target.innerHTML = e.dataTransfer.getData('text/html');
             }
-
-            const newUsersOrder = [...document.querySelectorAll('div.draggable')].map(user => user.dataset.id);
-            console.log('neww', newUsersOrder);
             
             return false;
         }
 
         const handleDragEnd = (e) => {
-            
-            items.forEach(function (item) {
-            item.classList.remove('over');
+            const $items = [...this.$element.querySelectorAll('.draggable')];
+            $items && $items.forEach(function ($item) {
+            $item.classList.remove('over');
             });
         }
 
-
-        const items = this.$element.querySelectorAll('.draggable');
-        items.forEach(function(item) {
-            item.addEventListener('dragstart', handleDragStart, false);
-            item.addEventListener('dragenter', handleDragEnter, false);
-            item.addEventListener('dragover', handleDragOver, false);
-            item.addEventListener('dragleave', handleDragLeave, false);
-            item.addEventListener('drop', handleDrop, false);
-            item.addEventListener('dragend', handleDragEnd, false);
-        });
+        this.$element.addEventListener('dragstart', handleDragStart, false);
+        this.$element.addEventListener('dragenter', handleDragEnter, false);
+        this.$element.addEventListener('dragover', handleDragOver, false);
+        this.$element.addEventListener('dragleave', handleDragLeave, false);
+        this.$element.addEventListener('drop', handleDrop, false);
+        this.$element.addEventListener('dragend', handleDragEnd, false);
     }
 
     const pinnedProfileComponent = (user, mode, idx) => {
+        const profileNumber = idx + 1;
         return `
-                ${mode === 3 && idx === 2 ? '<div id="profile-bottom-wrapper">' : ''}
+                ${mode === 3 && idx === 1 ? '<div id="profile-bottom-wrapper">' : ''}
                 <div id="profile-wrapper" class="profile-wrapper item-${idx}-${mode}">
-                    <div class="draggable" draggable="true" data-id="${user.name}">
+                    <div class="draggable" draggable="true" data-idx="${idx}" data-id="${user.id}">
                         <div class="profile-header">
-                            <p class="popup-profile-number">${idx}</p>
+                            <p class="popup-profile-number">${profileNumber}</p>
                             <p class="popup-profile-name">${user.name}</p>
                         </div>
                         <div id="popup-profile-default-picture" class="popup-profile-default-picture">
@@ -109,7 +112,7 @@ export default function App($element) {
                         </div>
                     </div>
                 </div>
-                ${mode === 3 && idx === 3 ? '</div>' : ''} `;
+                ${mode === 3 && idx === 2 ? '</div>' : ''} `;
             
     }
 
@@ -119,7 +122,7 @@ export default function App($element) {
                         <img draggable="false" class="warning-sample">
                     </div>
                     <div id="popup-profile-warning-notice">
-                        <p class="warning-title">없음</p>
+                        <p class="warning-title">정보 없음</p>
                     </div>
                 </div>
                 `;
@@ -127,7 +130,7 @@ export default function App($element) {
 
     const setComponent = (users) => {
         return `<p class="profile-notice">드래그로 순서를 변경 할 수 있습니다.</p>`
-        + (users.map((user, index) => pinnedProfileComponent(user, users.length, ++index))).join(""); 
+        + (users.map((user, index) => pinnedProfileComponent(user, users.length, index))).join(""); 
 
     }
 
@@ -140,9 +143,8 @@ export default function App($element) {
         setComponent(users)
         : emptyPinnedProfileComponent();
         this.$element.innerHTML = template;
-        
     }
-
+    
     this.init = () => {
         this.render();
         this.bindEvents();
