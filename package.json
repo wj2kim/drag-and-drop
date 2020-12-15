@@ -1,0 +1,21 @@
+{
+  "name": "drag-and-drop",
+  "version": "1.0.0",
+  "description": "prototype",
+  "main": "index.js",
+  "scripts": {
+    "compile": "node-sass css/style.scss -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wj2kim/drag-and-drop.git"
+  },
+  "author": "Paul Woo Jung Kim",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wj2kim/drag-and-drop/issues"
+  },
+  "homepage": "https://github.com/wj2kim/drag-and-drop#readme",
+  "devDependencies": {}
+}
