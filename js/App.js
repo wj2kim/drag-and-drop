@@ -13,7 +13,6 @@ export default function App($element) {
         if(users){
             this.state.users = users ?? [];
         }
-
         this.render();
     }
 
@@ -21,16 +20,12 @@ export default function App($element) {
 
         const handleDragStart = (e) => {
             this.$draggingElement = e.target;
-            e.dataTransfer.effectAllowed = 'move';
         }
 
         const handleDragOver = (e) => {
             if (e.preventDefault) {
             e.preventDefault();
             }
-
-            e.dataTransfer.dropEffect = 'move';
-            
             return false;
         }
 
@@ -52,10 +47,12 @@ export default function App($element) {
             if (e.stopPropagation) {
             e.stopPropagation();
             }
+
             let $target = null
             if(e.target.nodeName !== 'div' && !e.target.classList.contains('draggable')){
                 $target = e.target.closest('.draggable') ?? null;
             }
+            
             if(!$target){
                 return;
             }
@@ -64,7 +61,6 @@ export default function App($element) {
                 const {users} = this.state; 
                 const targetIdx = $target.dataset.idx;
                 const draggingIdx = this.$draggingElement.dataset.idx;
-
                 const temp = users[targetIdx];
                 users[targetIdx] = users[draggingIdx];
                 users[draggingIdx] = temp;
@@ -72,13 +68,9 @@ export default function App($element) {
                 this.setState({
                     users,
                 })
-
-                console.log("유저 순서", this.state.users);
-                // this.$draggingElement.innerHTML = target.innerHTML;
-                // target.innerHTML = e.dataTransfer.getData('text/html');
             }
             
-            return false;
+            return;
         }
 
         const handleDragEnd = (e) => {
@@ -128,14 +120,13 @@ export default function App($element) {
     }
 
     const setComponent = (users) => {
-        return `<p class="profile-notice">드래그로 순서를 변경 할 수 있습니다.</p>`
+        return `<p class="profile-notice">드래그로 순서를 변경해 보세요!</p>`
         + (users.map((user, index) => pinnedProfileComponent(user, users.length, index))).join(""); 
 
     }
 
 
     this.render = () => {
-
         const { users } = this.state;
 
         const template = users.length ? 
