@@ -22,7 +22,6 @@ export default function App($element) {
         const handleDragStart = (e) => {
             this.$draggingElement = e.target;
             e.dataTransfer.effectAllowed = 'move';
-            // e.dataTransfer.setData('text/html', e.target.innerHTML);
         }
 
         const handleDragOver = (e) => {
